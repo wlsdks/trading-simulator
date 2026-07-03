@@ -12,7 +12,8 @@
 | [policies.md](./policies.md) | 정책 카탈로그 — **12개 도메인 152개 정책**(계좌·주문·시세·회계·게임화·수익화·법무·데이터/보안 + SEC·A11Y·I18N·OPS), 각 규칙·근거·**사이드이펙트·엣지케이스**·의존 |
 | [use-cases.md](./use-cases.md) | 유즈케이스 명세 — 40+개 유즈케이스(액터·목표·주요/대안흐름·관련정책) |
 | [reference-research.md](./reference-research.md) | 레퍼런스 조사 — 경쟁 앱·게임화·시세 API·수익화·현실성/규제 비교 |
-| [planning-review.md](./planning-review.md) | **완결성 감사 리포트 (Round 1)** — 14인 검수 패널의 커버리지 매트릭스·우선순위 갭·불일치·오너 결정필요 |
+| [planning-review.md](./planning-review.md) | 완결성 감사 리포트 (Round 1~2) — 커버리지 매트릭스·우선순위 갭·불일치·개선 반영 현황 |
+| [planning-review-r3.md](./planning-review-r3.md) | **재감사 리포트 (Round 3)** — R2 통합본 회귀·수치정합 검증 + 심화 감사. 28개 아티팩트·11개 오너 결정 |
 | [tracking-plan.md](./tracking-plan.md) | 계측 계획 — 이벤트 택소노미·트래킹 플랜·지표↔이벤트 매핑 (R1 신규) |
 | [monetization-model.md](./monetization-model.md) | 수익화 재무모델 — CAC·LTV:CAC·BEP·B2B ARR·가격 시나리오 (R1 신규) |
 
