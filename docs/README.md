@@ -16,6 +16,9 @@
 | [planning-review-r3.md](./planning-review-r3.md) | **재감사 리포트 (Round 3)** — R2 통합본 회귀·수치정합 검증 + 심화 감사. 28개 아티팩트·11개 오너 결정 |
 | [tracking-plan.md](./tracking-plan.md) | 계측 계획 — 이벤트 택소노미·트래킹 플랜·지표↔이벤트 매핑 (R1 신규) |
 | [monetization-model.md](./monetization-model.md) | 수익화 재무모델 — CAC·LTV:CAC·BEP·B2B ARR·가격 시나리오 (R1 신규) |
+| [tech-stack.md](./tech-stack.md) | 확정 기술 스택 (2026-07-04 웹리서치) — Expo SDK 57 코어·라이브러리·호환 매트릭스 |
+| [instruments-and-markets.md](./instruments-and-markets.md) | **상품·시장 명세** — 레버리지 1000배·인버스·옵션(블랙숄즈)·선물·무기한·ETF/ETN·코인, KR/US/JP 3시장, 마진·청산 엔진, 확장 회계 모델 |
+| [social-profiles.md](./social-profiles.md) | **소셜·프로필·랭킹** — 프로필 열람·공개범위·팔로우·다차원 리더보드·어뷰징 방지 |
 
 ### 포지셔닝 (2026-07 확정)
 **"재미로 하는 주식 게임"** — 교육 앱이 아니라 가짜 돈으로 즐기는 **재미·경쟁·소셜·수집** 중심의 트레이딩 게임. (초기 기획의 "교육형" 프레임은 폐기.) 법적 가드레일 최소 4개만 유지: ①실제 현금 상금 X ②"모의 시뮬레이션" 면책 ③개인 맞춤 매수추천 X ④실시간 실데이터시 라이선스.
