@@ -201,7 +201,16 @@
 11. 애널리틱스/어트리뷰션/실험 벤더 선정(PostHog/Amplitude/Firebase, Branch/Adjust/AppsFlyer)과 로컬퍼스트 오프라인 수집 아키텍처 채택 — 계측을 MVP에 넣는 결정과 연동.
 12. '졸업(off-ramp)'을 성공 이벤트로 계측할지 — 교육 미션(학생의 실전 이행)과 리텐션 KPI의 구조적 충돌을 어느 방향으로 봉합할지, 특히 B2B 커리큘럼 트랙.
 
-## Round 1 개선 반영 현황
+## 개선 반영 현황 (Round 1 → Round 2)
+
+**Round 2에서 아래 보강을 본문 정식 섹션으로 승격하고 14건 상충을 단일소스로 정정 완료:**
+- [PRD.md](./PRD.md): §4.2 지표 3계층, §9.4 학습성과 측정, §10.3 백엔드 아키텍처 정합, §12.6 인프라 비용, §19 비기능요구·릴리스 기준. 백엔드 스택·NSM 위계·로케일·광고 ARPU·면책/연령 시점 정정.
+- [policies.md](./policies.md): 반올림 round-half-even 단일표준(ACC-19), MON-01 지정가, avgCost 파생, LEG-02/05 시점, 파산 쿨다운 정정. 부록 → 정식 도메인 9.SEC·10.A11Y·11.I18N·12.OPS 승격 → 12개 도메인·152개 정책.
+- [use-cases.md](./use-cases.md): 커뮤니티 T&S UC-B29~B31 추가, 게스트 병합·지정가 UC 정정 → 45개 UC.
+
+---
+
+### Round 1 원본 반영 기록
 
 상위 갭에 대한 개선 콘텐츠 초안이 작성되어 다음과 같이 반영되었습니다:
 - 신규 문서: [tracking-plan.md](./tracking-plan.md)(계측·이벤트 택소노미), [monetization-model.md](./monetization-model.md)(유닛이코노믹스)
