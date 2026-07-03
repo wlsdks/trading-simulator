@@ -6,12 +6,18 @@
 
 ## 문서
 
-| 문서 | 내용 | 분량 |
-|---|---|---|
-| [PRD.md](./PRD.md) | 제품 기획서 — 비전·페르소나·목표·스코프·기능·UX·기술·수익화·법무·로드맵·오픈이슈 | 529줄 |
-| [policies.md](./policies.md) | 정책 카탈로그 — 8개 도메인 **124개 정책**, 각 규칙·근거·**사이드이펙트·엣지케이스**·의존/충돌 + 교차비평 반영 | 3,751줄 |
-| [use-cases.md](./use-cases.md) | 유즈케이스 명세 — 40+개 유즈케이스(액터·목표·주요/대안흐름·관련정책) | 1,270줄 |
-| [reference-research.md](./reference-research.md) | 레퍼런스 조사 — 경쟁 앱·게임화·시세 API·수익화·현실성/규제 비교 | 351줄 |
+| 문서 | 내용 |
+|---|---|
+| [PRD.md](./PRD.md) | 제품 기획서 — 비전·페르소나·목표·스코프·기능·UX·기술·수익화·법무·로드맵·오픈이슈 (+ 부록 R1 보강) |
+| [policies.md](./policies.md) | 정책 카탈로그 — 8개 도메인 124개 정책, 각 규칙·근거·**사이드이펙트·엣지케이스**·의존 (+ 부록 R1 신규 정책군) |
+| [use-cases.md](./use-cases.md) | 유즈케이스 명세 — 40+개 유즈케이스(액터·목표·주요/대안흐름·관련정책) |
+| [reference-research.md](./reference-research.md) | 레퍼런스 조사 — 경쟁 앱·게임화·시세 API·수익화·현실성/규제 비교 |
+| [planning-review.md](./planning-review.md) | **완결성 감사 리포트 (Round 1)** — 14인 검수 패널의 커버리지 매트릭스·우선순위 갭·불일치·오너 결정필요 |
+| [tracking-plan.md](./tracking-plan.md) | 계측 계획 — 이벤트 택소노미·트래킹 플랜·지표↔이벤트 매핑 (R1 신규) |
+| [monetization-model.md](./monetization-model.md) | 수익화 재무모델 — CAC·LTV:CAC·BEP·B2B ARR·가격 시나리오 (R1 신규) |
+
+### 완결성 감사 (Round 1) 요약
+정책·규칙 깊이는 **출시급**이나, ①측정(애널리틱스) ②백엔드 인프라 정합 ③QA/운영(DevOps) ④다관할 법무(CCPA/DSA/OFAC) ⑤접근성·i18n 이 약함 → 이 축들을 릴리스 게이트로 봉합해야 출시 가능. 상세·후속 조치는 [planning-review.md](./planning-review.md).
 
 ## 읽는 순서 추천
 
