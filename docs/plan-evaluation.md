@@ -257,3 +257,23 @@ The Phase-0/MVP slice is now concrete enough to start implementation because `do
 Remaining blocker:
 
 1. **P1 label still has two meanings in the PRD.** `docs/PRD.md` `§17 로드맵` lines 826-838 points Phase 0/MVP and P1-deferred to `docs/p1-scope.md`, but `docs/PRD.md` `§5.0 상품·시장 확장 스코프` lines 155-161 still labels shorting, 1000x leverage, ETF, profiles, rankings, and social as product-phasing `P1`, and `docs/PRD.md` `Q2 2027 — v2` line 850 says shorting/leverage/liquidation/margin interest were already settled in P1. This is now mostly explained by overlay language, but it still leaves a second active `P1` label that can confuse full-scope planning.
+
+## Re-evaluation v4 (2026-07-04)
+
+### Final score
+
+**9/10.**
+
+### Verdict
+
+**BUILD-READY for the Phase-0/MVP slice defined in `docs/p1-scope.md`.**
+
+### Dual-P1 ambiguity
+
+**Resolved: yes.** `docs/PRD.md` §5.0 now labels instrument phasing as **IP1~IP4**, and the §5.0 note explicitly separates instrument phasing (`IP1~IP4`) from the build slice (`Phase 0 / MVP`, `docs/p1-scope.md`). `docs/PRD.md` §17 now repeats that `p1-scope.md` is the build-ready SSOT, keeps Phase 0/MVP limited to the local fictional-US-stock/accounting/engine/onboarding/progression/system-opponent slice, and puts later instruments under **IP2**, **IP3**, and **IP4**. The previous v3 problem phrase in Q2 2027 has been relabeled to say shorting/leverage/liquidation/margin interest were already settled in **IP1**, not P1.
+
+I also scanned the rest of `docs/PRD.md` and `docs/p1-scope.md` for remaining `P1` references. The remaining relevant uses are build-slice/SSOT terms (`P1 Scope SSOT`, `P1-deferred`), a problem-table ID (`PRD.md` §2.1 `P1`), and unrelated roadmap/data/legal shorthand such as `P1(베타)` or "P1 착수 전"; I did not find any remaining unrelabeled instrument-phasing reference that uses `P1` instead of `IP1`.
+
+### Remaining material blockers
+
+None. No material documentation blockers remain for starting the Phase-0/MVP build slice.
