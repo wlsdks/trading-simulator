@@ -17,6 +17,7 @@
 | [tracking-plan.md](./tracking-plan.md) | 계측 계획 — 이벤트 택소노미·트래킹 플랜·지표↔이벤트 매핑 (R1 신규) |
 | [monetization-model.md](./monetization-model.md) | 수익화 재무모델 — CAC·LTV:CAC·BEP·B2B ARR·가격 시나리오 (R1 신규) |
 | [tech-stack.md](./tech-stack.md) | 확정 기술 스택 (2026-07-04 웹리서치) — Expo SDK 57 코어·라이브러리·호환 매트릭스 |
+| [dev-spec.md](./dev-spec.md) | 개발 스펙 (Codex) — 상태관리 Zustand+TanStack Query · 차트 Skia 커스텀 · P1 구현 아키텍처·핀 버전 |
 | [instruments-and-markets.md](./instruments-and-markets.md) | **상품·시장 명세** — 레버리지 1000배·인버스·옵션(블랙숄즈)·선물·무기한·ETF/ETN·코인, KR/US/JP 3시장, 마진·청산 엔진, 확장 회계 모델 |
 | [social-profiles.md](./social-profiles.md) | **소셜·프로필·랭킹** — 프로필 열람·공개범위·팔로우·다차원 리더보드·어뷰징 방지 |
 | [game-modes.md](./game-modes.md) | **개인 모드 vs 대회 모드** — 무한리셋+상한리필 개인 / 방장조건·격리계좌 대회 / 디스커버리·참여·관전 / 상품(비현금) 정책 |
