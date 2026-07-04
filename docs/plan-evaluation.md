@@ -191,3 +191,41 @@ Shortest path to build-ready:
 4. Convert Phase 0 into an implementation checklist with modules, tests, migration steps, and acceptance criteria.
 5. Require legal/app-store review before enabling high-leverage, social, news/events, or any contest reward surface.
 6. Define the first playable milestone: guest opens app, buys a fictional US stock, sees correct P&L, completes one mission, returns next day, and can reset without corrupting accounting.
+
+## Re-evaluation v2 (2026-07-04)
+
+### Previously cited issues
+
+1. **Stale SSOT counts — RESOLVED.** Checked `README.md` lines 19-23, `docs/README.md` lines 11-13, `docs/PRD.md` §14 lines 744-746, `docs/policies.md` §개요 lines 9-36, and `docs/use-cases.md` lines 1-5 plus §7 lines 1401-1450. The README and docs index now both state **16 domains / 215 policies** and **49 use cases**; I also counted 16 policy-domain table rows summing to 215 and 49 `UC-A/UC-B` headings.
+
+2. **Reference research education framing — PARTIAL.** Checked `docs/reference-research.md` top notice lines 3-9 and §1 lines 26-39. The document now clearly marks the education-first/hybrid recommendation as superseded and points to PRD §1.1, but the live one-line summary and section body still carry the old education×game recommendation; because `docs/README.md` still recommends reading this file for rationale at lines 36-38, the historical framing can still leak into execution unless treated as archived input.
+
+3. **P1 terminology overloaded — PARTIAL.** Checked `docs/p1-scope.md` lines 1-26, `docs/use-cases.md` §7 lines 1390-1399, `docs/instruments-and-markets.md` §9 lines 478-489, `docs/living-market.md` §9 lines 281-294, and `docs/PRD.md` §17 lines 826-838. Several docs now add "P1 용어 주의" warnings and point to `p1-scope.md` as SSOT, which helps, but PRD §17 still says P1 starts in MVP and completes in v1 with leverage, server, profiles, rankings, and social, while `p1-scope.md` defers full social and high-risk variants out of the build-ready slice.
+
+4. **Consent timing contradiction — PARTIAL.** Checked `docs/PRD.md` §7.2 lines 279-287 and §13.2 lines 721-723. The direct PRD contradiction is fixed: both sections now say onboarding shows only a micro-banner and full checkbox consent is delayed until social/payment/contest entry; however `docs/use-cases.md` UC-B01 still has alternative flow 3a at lines 596-599 saying first buy is locked without full disclaimer consent, so the implementation-facing flow remains inconsistent.
+
+5. **Birth date vs birth year/month — RESOLVED.** Checked `docs/PRD.md` §7.2 lines 285-287, §13.3 lines 724-727, `docs/use-cases.md` UC-B02 lines 610-628, and `docs/p1-scope.md` MVP lines 13-16. The current docs consistently specify **출생 연월 / 연·월만, 일 미수집** for the age gate, and UC-B02 no longer asks for full birth date.
+
+6. **Liquidation-history visibility contradiction — RESOLVED.** Checked `docs/instruments-and-markets.md` §7.10/§8 lines 455-456 and 464-469, `docs/social-profiles.md` principles and SOC-05 lines 59-62 and 192-197 plus §7 matrix lines 373-374, and `docs/policies.md` SOC-05/LEV references lines 5558, 5716, and 5929-5934. The current rule is coherent: public profiles cannot hide the **risk summary** such as liquidation count/max leverage, while detailed liquidation history defaults private and is not broadcast.
+
+7. **Moderation vs social UC priority conflict — RESOLVED.** Checked `docs/social-profiles.md` principles lines 56-62 and UC-B32 lines 405-409, `docs/use-cases.md` §7 priority table lines 1426-1429 and 1445-1447, and `docs/PRD.md` §17 lines 834-838. UC-B29/B30/B31 are now P1 and explicitly marked hard gates before social profile/follow/leaderboard surfaces.
+
+### p1-scope.md assessment
+
+`docs/p1-scope.md` is a useful new SSOT and does define a tighter slice: Phase 0 IN at lines 5-11, MVP IN at lines 13-18, and P1-deferred OUT at lines 20-26. It is broadly aligned with PRD §5 MVP scope in `docs/PRD.md` lines 171-188: both include accounting hardening, deterministic fictional market, 30-second guest onboarding, local progression, and one system-opponent/ghost contest primitive.
+
+It is not yet a complete build-ready scope contract. It does not define the requested first-playable milestone or acceptance criteria; the MVP contest primitive at line 18 is still a loose "system 상대 or ghost/benchmark" option rather than a chosen implementation; and it conflicts with remaining PRD roadmap language at `docs/PRD.md` lines 826-838, where P1 still includes leverage/forced liquidation, server, moderation, profiles, rankings, and social completion. Domain docs reduce ambiguity by pointing to `p1-scope.md`, but the PRD roadmap still needs to be reconciled or explicitly labeled as non-SSOT domain phasing.
+
+### Final score and verdict
+
+**Overall maturity score: 8/10.**
+
+**Verdict: NOT BUILD-READY for the Phase 0/MVP slice defined in `docs/p1-scope.md`.**
+
+The fix pass materially improved the docs: counts are corrected, age collection is consistent, liquidation privacy is coherent, and moderation is now correctly before social. The remaining blockers are narrower but still execution-relevant: consent flow inconsistency in UC-B01, unresolved P1 roadmap terminology across PRD/domain docs, and the absence of a concrete first-playable acceptance contract in `p1-scope.md`.
+
+Shortest remaining path:
+
+1. Fix `docs/use-cases.md` UC-B01 alternative flow 3a so first buy is not blocked by full consent in the pure local guest flow.
+2. Update PRD §17, or add an explicit note there, so the Phase 0/MVP build-ready slice in `p1-scope.md` is not contradicted by "P1 complete" leverage/server/social roadmap language.
+3. Extend `docs/p1-scope.md` with a first-playable milestone and measurable acceptance checklist: open app, pass age gate with birth year/month, buy a fictional US stock, see correct realized/unrealized P&L, complete one mission/badge, return next day, and reset without ledger corruption.
