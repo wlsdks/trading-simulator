@@ -11,14 +11,15 @@ import {
 import TradeModal from './src/components/TradeModal';
 import MarketScreen from './src/screens/MarketScreen';
 import PortfolioScreen from './src/screens/PortfolioScreen';
+import { LineChart, Wallet, type LucideIcon } from 'lucide-react-native';
 import { usePortfolioStore } from './src/state/stores/portfolioStore';
 import { colors, spacing } from './src/theme';
 
 type Tab = 'market' | 'portfolio';
 
-const TABS: { key: Tab; label: string; icon: string }[] = [
-  { key: 'market', label: '마켓', icon: '📈' },
-  { key: 'portfolio', label: '내 자산', icon: '💼' },
+const TABS: { key: Tab; label: string; Icon: LucideIcon }[] = [
+  { key: 'market', label: '마켓', Icon: LineChart },
+  { key: 'portfolio', label: '내 자산', Icon: Wallet },
 ];
 
 function Shell() {
@@ -58,7 +59,11 @@ function Shell() {
           const active = tab === t.key;
           return (
             <Pressable key={t.key} style={styles.tabItem} onPress={() => setTab(t.key)}>
-              <Text style={[styles.tabIcon, { opacity: active ? 1 : 0.45 }]}>{t.icon}</Text>
+              <t.Icon
+                size={22}
+                strokeWidth={2}
+                color={active ? colors.accent : colors.muted}
+              />
               <Text style={[styles.tabLabel, { color: active ? colors.accent : colors.muted }]}>
                 {t.label}
               </Text>
