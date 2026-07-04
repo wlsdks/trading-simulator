@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { usePortfolio } from '../context/PortfolioContext';
 import { STOCKS } from '../data/stocks';
+import { usePortfolioStore } from '../state/stores/portfolioStore';
 import { changeColor, colors, radius, spacing } from '../theme';
 import { formatCurrency, formatPercent } from '../utils/format';
 
@@ -10,7 +10,8 @@ interface Props {
 }
 
 export default function MarketScreen({ onSelect }: Props) {
-  const { prices, dayOpen } = usePortfolio();
+  const prices = usePortfolioStore((state) => state.prices);
+  const dayOpen = usePortfolioStore((state) => state.dayOpen);
 
   return (
     <View style={styles.container}>
@@ -46,6 +47,7 @@ export default function MarketScreen({ onSelect }: Props) {
                 <Text style={styles.price}>{formatCurrency(price)}</Text>
                 <View style={[styles.pill, { backgroundColor: c + '22' }]}>
                   <Text style={[styles.pillText, { color: c }]}>
+                    {changePct > 0 ? '↑ ' : changePct < 0 ? '↓ ' : ''}
                     {formatPercent(changePct)}
                   </Text>
                 </View>

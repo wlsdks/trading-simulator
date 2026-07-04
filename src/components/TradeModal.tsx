@@ -9,9 +9,9 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { usePortfolio } from '../context/PortfolioContext';
 import { STOCKS_BY_TICKER } from '../data/stocks';
-import { colors, radius, spacing } from '../theme';
+import { usePortfolioStore } from '../state/stores/portfolioStore';
+import { colors, componentTokens, radius, spacing } from '../theme';
 import { formatCurrency, formatShares } from '../utils/format';
 
 interface Props {
@@ -22,7 +22,13 @@ interface Props {
 type Side = 'BUY' | 'SELL';
 
 export default function TradeModal({ ticker, onClose }: Props) {
-  const { prices, cash, holdings, buy, sell } = usePortfolio();
+  const prices = usePortfolioStore((state) => state.prices);
+  const cash = usePortfolioStore((state) => state.cash);
+  const holdings = usePortfolioStore((state) => state.holdings);
+  const getTradeEstimate = usePortfolioStore((state) => state.getTradeEstimate);
+  const getMaxBuyQty = usePortfolioStore((state) => state.getMaxBuyQty);
+  const buy = usePortfolioStore((state) => state.buy);
+  const sell = usePortfolioStore((state) => state.sell);
   const [side, setSide] = useState<Side>('BUY');
   const [qtyText, setQtyText] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -38,13 +44,13 @@ export default function TradeModal({ ticker, onClose }: Props) {
   const price = ticker ? prices[ticker] ?? 0 : 0;
   const held = ticker ? holdings[ticker]?.qty ?? 0 : 0;
   const qty = Number(qtyText) || 0;
-  const estimated = price * qty;
+  const estimated = ticker ? getTradeEstimate(ticker, qty) : 0;
 
   const maxQty = useMemo(() => {
     if (!ticker) return 0;
-    if (side === 'BUY') return price > 0 ? Math.floor(cash / price) : 0;
+    if (side === 'BUY') return getMaxBuyQty(ticker);
     return held;
-  }, [ticker, side, price, cash, held]);
+  }, [ticker, side, getMaxBuyQty, held]);
 
   if (!ticker || !stock) return null;
 
@@ -58,7 +64,7 @@ export default function TradeModal({ ticker, onClose }: Props) {
     }
   };
 
-  const canSubmit = qty > 0 && (side === 'BUY' ? estimated <= cash : qty <= held);
+  const canSubmit = Number.isSafeInteger(qty) && qty > 0 && qty <= maxQty;
 
   return (
     <Modal visible transparent animationType="slide" onRequestClose={onClose}>
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: componentTokens.overlay.scrim,
   },
   sheetWrap: { flex: 1, justifyContent: 'flex-end' },
   sheet: {

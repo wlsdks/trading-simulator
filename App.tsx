@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Pressable,
@@ -9,9 +9,9 @@ import {
   View,
 } from 'react-native';
 import TradeModal from './src/components/TradeModal';
-import { PortfolioProvider, usePortfolio } from './src/context/PortfolioContext';
 import MarketScreen from './src/screens/MarketScreen';
 import PortfolioScreen from './src/screens/PortfolioScreen';
+import { usePortfolioStore } from './src/state/stores/portfolioStore';
 import { colors, spacing } from './src/theme';
 
 type Tab = 'market' | 'portfolio';
@@ -22,9 +22,17 @@ const TABS: { key: Tab; label: string; icon: string }[] = [
 ];
 
 function Shell() {
-  const { ready } = usePortfolio();
+  const ready = usePortfolioStore((state) => state.ready);
+  const hydrate = usePortfolioStore((state) => state.hydrate);
+  const startPriceTicker = usePortfolioStore((state) => state.startPriceTicker);
   const [tab, setTab] = useState<Tab>('market');
   const [tradeTicker, setTradeTicker] = useState<string | null>(null);
+
+  useEffect(() => {
+    hydrate();
+    const stopTicker = startPriceTicker();
+    return stopTicker;
+  }, [hydrate, startPriceTicker]);
 
   if (!ready) {
     return (
@@ -66,11 +74,7 @@ function Shell() {
 }
 
 export default function App() {
-  return (
-    <PortfolioProvider>
-      <Shell />
-    </PortfolioProvider>
-  );
+  return <Shell />;
 }
 
 const styles = StyleSheet.create({

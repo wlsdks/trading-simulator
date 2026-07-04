@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { usePortfolio } from '../context/PortfolioContext';
 import { STOCKS_BY_TICKER } from '../data/stocks';
+import { usePortfolioStore } from '../state/stores/portfolioStore';
 import { changeColor, colors, radius, spacing } from '../theme';
 import {
   formatCurrency,
@@ -15,20 +15,17 @@ interface Props {
 }
 
 export default function PortfolioScreen({ onSelect }: Props) {
-  const {
-    cash,
-    holdings,
-    prices,
-    totalValue,
-    totalPL,
-    totalPLPercent,
-    holdingsValue,
-    transactions,
-    reset,
-  } = usePortfolio();
+  const cash = usePortfolioStore((state) => state.cash);
+  const holdingDetails = usePortfolioStore((state) => state.holdingDetails);
+  const totalValue = usePortfolioStore((state) => state.totalValue);
+  const totalPL = usePortfolioStore((state) => state.totalPL);
+  const totalPLPercent = usePortfolioStore((state) => state.totalPLPercent);
+  const holdingsValue = usePortfolioStore((state) => state.holdingsValue);
+  const transactions = usePortfolioStore((state) => state.transactions);
+  const reset = usePortfolioStore((state) => state.reset);
 
   const plColor = changeColor(totalPL);
-  const holdingEntries = Object.entries(holdings);
+  const holdingEntries = Object.entries(holdingDetails);
 
   const confirmReset = () => {
     Alert.alert('포트폴리오 초기화', '현금과 보유 종목을 모두 초기 상태로 되돌릴까요?', [
@@ -45,6 +42,7 @@ export default function PortfolioScreen({ onSelect }: Props) {
         <Text style={styles.heroValue}>{formatCurrency(totalValue)}</Text>
         <View style={styles.heroPlRow}>
           <Text style={[styles.heroPl, { color: plColor }]}>
+            {totalPL > 0 ? '↑ ' : totalPL < 0 ? '↓ ' : ''}
             {formatSignedCurrency(totalPL)} ({formatPercent(totalPLPercent)})
           </Text>
           <Text style={styles.heroPlCaption}>평가손익</Text>
@@ -76,10 +74,9 @@ export default function PortfolioScreen({ onSelect }: Props) {
         </View>
       ) : (
         holdingEntries.map(([ticker, h]) => {
-          const price = prices[ticker] ?? h.avgCost;
-          const value = price * h.qty;
-          const pl = (price - h.avgCost) * h.qty;
-          const plPct = h.avgCost > 0 ? ((price - h.avgCost) / h.avgCost) * 100 : 0;
+          const price = h.currentPrice;
+          const pl = h.unrealizedPL;
+          const plPct = h.unrealizedPLPercent;
           const c = changeColor(pl);
           const stock = STOCKS_BY_TICKER[ticker];
           return (
@@ -90,13 +87,14 @@ export default function PortfolioScreen({ onSelect }: Props) {
             >
               <View style={styles.holdingTop}>
                 <Text style={styles.holdingTicker}>{ticker}</Text>
-                <Text style={styles.holdingValue}>{formatCurrency(value)}</Text>
+                <Text style={styles.holdingValue}>{formatCurrency(h.value)}</Text>
               </View>
               <View style={styles.holdingBottom}>
                 <Text style={styles.holdingMeta}>
                   {formatShares(h.qty)}주 · 평단 {formatCurrency(h.avgCost)}
                 </Text>
                 <Text style={[styles.holdingPl, { color: c }]}>
+                  {pl > 0 ? '↑ ' : pl < 0 ? '↓ ' : ''}
                   {formatSignedCurrency(pl)} ({formatPercent(plPct)})
                 </Text>
               </View>
