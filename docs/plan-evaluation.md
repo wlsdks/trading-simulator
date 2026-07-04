@@ -229,3 +229,31 @@ Shortest remaining path:
 1. Fix `docs/use-cases.md` UC-B01 alternative flow 3a so first buy is not blocked by full consent in the pure local guest flow.
 2. Update PRD §17, or add an explicit note there, so the Phase 0/MVP build-ready slice in `p1-scope.md` is not contradicted by "P1 complete" leverage/server/social roadmap language.
 3. Extend `docs/p1-scope.md` with a first-playable milestone and measurable acceptance checklist: open app, pass age gate with birth year/month, buy a fictional US stock, see correct realized/unrealized P&L, complete one mission/badge, return next day, and reset without ledger corruption.
+
+## Re-evaluation v3 (2026-07-04)
+
+### Previously PARTIAL items
+
+1. **Consent flow — RESOLVED.** Checked `docs/use-cases.md` `UC-B01 · 최초 게스트 온보딩(30초 첫 매수 + 보장된 첫 배지)` lines 587-606. The current main flow says onboarding shows a bottom micro-disclaimer banner and defers full disclaimer consent to social/payment/contest entry, and alternative flow 3a now explicitly says pure local guest first buy is not locked by missing full consent.
+
+2. **P1 terminology / roadmap reconciliation — PARTIAL.** Checked `docs/PRD.md` `§5. 스코프`, `§5.0 상품·시장 확장 스코프`, `§17 로드맵` lines 149-165 and 826-850, plus `docs/p1-scope.md` `Trading Simulator — P1 Scope SSOT` lines 1-18 and `P1-deferred (OUT)` lines 66-72. PRD §17 now correctly states `p1-scope.md` is the build-ready SSOT and limits Phase 0/MVP to local fictional US stocks, accounting, deterministic engine, onboarding, progression, and one system-opponent/ghost primitive; however PRD §5.0 still uses a separate product-phasing `P1` for shorting, 1000x leverage, ETF, profiles, rankings, and social, and the v2 roadmap note still says leverage/shorting were "P1에서 이미 확정", so the docs are disambiguated but not reduced to one unambiguous P1 meaning.
+
+3. **First-playable / Phase 0-MVP acceptance contract — RESOLVED.** Checked `docs/p1-scope.md` `First-playable milestone`, `Acceptance checklist`, and `Milestone acceptance criteria` lines 20-64. The doc now defines a seven-step first playable path from guest entry through age gate, no full consent, market buy, cent-accurate P&L/equity, mission reward, next-day replay, and reset, then backs it with Phase 0 modules, MVP modules, required property tests, and explicit Phase 0 / first-playable / MVP completion criteria.
+
+4. **Reference research education-first wording — RESOLVED.** Checked `docs/reference-research.md` top notices and `§1. 조사 범위와 시장 지형` lines 5-9 and 26-38, plus `§7.9 실행 우선순위 요약` lines 335-346. The education-first and learning/risk-management recommendations still remain as historical research text, but they are explicitly marked superseded at the top, before section 1, and before the old priority table, with the current source of truth pointing to PRD §1.1 and `p1-scope.md`; I did not find an unmarked current instruction that overrides the fun-first fictional-company direction.
+
+### p1-scope.md assessment
+
+Yes: `docs/p1-scope.md` now has a coherent first-playable milestone plus Phase 0/MVP acceptance checklist. Evidence: `First-playable milestone` lines 20-30 gives the full playable path, `Acceptance checklist` lines 32-58 lists Phase 0 modules, MVP modules, and required property tests, and `Milestone acceptance criteria` lines 60-64 defines Phase 0 complete, first-playable complete, and MVP complete.
+
+### Final score and verdict
+
+**Overall maturity score: 8.5/10.**
+
+**Verdict: BUILD-READY for the Phase-0/MVP slice defined in `docs/p1-scope.md`.**
+
+The Phase-0/MVP slice is now concrete enough to start implementation because `docs/p1-scope.md` defines the included modules, first playable path, property tests, and completion gates. The remaining issue is a documentation clarity blocker for broader P1 planning, not a blocker to starting the narrower Phase-0/MVP build.
+
+Remaining blocker:
+
+1. **P1 label still has two meanings in the PRD.** `docs/PRD.md` `§17 로드맵` lines 826-838 points Phase 0/MVP and P1-deferred to `docs/p1-scope.md`, but `docs/PRD.md` `§5.0 상품·시장 확장 스코프` lines 155-161 still labels shorting, 1000x leverage, ETF, profiles, rankings, and social as product-phasing `P1`, and `docs/PRD.md` `Q2 2027 — v2` line 850 says shorting/leverage/liquidation/margin interest were already settled in P1. This is now mostly explained by overlay language, but it still leaves a second active `P1` label that can confuse full-scope planning.
