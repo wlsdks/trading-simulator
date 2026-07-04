@@ -277,3 +277,54 @@ I also scanned the rest of `docs/PRD.md` and `docs/p1-scope.md` for remaining `P
 ### Remaining material blockers
 
 None. No material documentation blockers remain for starting the Phase-0/MVP build slice.
+
+## Fun re-check v5 (2026-07-04)
+
+### Scope actually checked
+
+I independently opened and read the eight edited docs named in the request: `docs/PRD.md`, `docs/policies.md`, `docs/use-cases.md`, `docs/game-modes.md`, `docs/living-market.md`, `docs/design-decisions.md`, `docs/design-tokens.md`, and `docs/tracking-plan.md`. I also opened and read this file, `docs/plan-evaluation.md`, before appending this section.
+
+### Gap-by-gap verdicts
+
+| Gap | Verdict | Evidence |
+|---|---|---|
+| rank1 — win-feel / confetti SSOT decoupled from realized P&L | **RESOLVED** | `PRD.md §7.2` lines 279-288 gives the first-win feel as the `'입성 / 플레이어 탄생'` identity badge and says trade/P&L itself gets no confetti. `PRD.md §8.3` line 342 is now a clear "축하 연출 SSOT" that allows celebration only for P&L-independent channels and forbids buy/sell fills, profit realization, and loss recovery confetti. `policies.md LEG-07` lines 3228-3234 repeats the rule and routes fill feedback to plain toast/state feedback. `use-cases.md UC-A01` lines 255-266 and `UC-B01` lines 696-708 also attach the first moment to identity, not P&L. |
+| rank2 — judgment-quality XP, not trade-volume XP | **RESOLVED** | `PRD.md §8.2` lines 332-337 says XP comes from judgment quality, scenarios, new fictional-company first trade, stop adherence, collection, badges, and contests, while `거래량 XP=0` and P&L/trade count/profit realization XP are forbidden. `policies.md GRF 공통 부록` lines 2263-2281 makes this a hard invariant and lists the same source tiers. `game-modes.md §2.4` lines 108-120 repeats `거래량 XP=0` and says simple profit realization, trade count, and trade value earn 0 XP. `living-market.md §7.1` lines 256-267 defines positive-EV skill play and says the reward is for expected-good judgment, not whether the event was profitable. `tracking-plan.md §5.3` lines 116-121 rejects `xp_earned.source=trading_volume` at schema lint. |
+| rank3 — fictional-company collection 도감 system | **RESOLVED** | `game-modes.md §2.4.1` lines 122-130 defines the 도감/dex with `discovered` to `collected`, sector/country/season/event-arc tracks, and non-cash rewards. `policies.md` lines 2287-2290 repeats the two-stage entry and non-cash-only set rewards. `use-cases.md UC-B36` lines 1505-1518 gives the user flow, idempotent first-trade unlock, `collection_entry_unlocked` / `collection_set_completed` events, and no P&L sharing. `tracking-plan.md §5.3` lines 118-119 registers collection events. Naming is consistent enough: "도감/컬렉션" is the product label, `collection_*` is the analytics/schema prefix, and `dex` appears only as an explanatory English alias in `game-modes.md`. |
+| rank4 — push/notification lifecycle and tracking | **RESOLVED** | `policies.md NWS-05` lines 6144-6154 defines the unified 1-2/day cap, quiet hours, permission priming after first value moment, D1/D3/D7/D14/D30 policy table, dormant win-back, no P&L/loss-recovery/buy-sell CTA, and event tracking. `use-cases.md UC-B37` lines 1520-1544 turns that into a user flow with soft ask, OS prompt, inbox fallback, cohort table, suppression events, and win-back constraints. `PRD.md §7.4` lines 298-305 aligns daily return, push cap, loss-position bad-news suppression, and no buy-sheet prefill. `tracking-plan.md §5.3.1` lines 123-132 registers permission, sent/opened, inbox, quiet-hours, and cap suppression events. |
+| rank5 — headline fun-surface UCs for derivatives/leverage/chart/news/market-pulse screens | **PARTIAL** | The fun surfaces are present, but most are still deferred rather than build-detailed. `use-cases.md §4` lines 188-200 lists `UC-A15` to `UC-A20` for derivative/margin surfaces and `UC-A21` to `UC-A27` for advanced chart, microstructure, news, market pulse, breaking-news landing, event reaction, and rights-offering decisions. `use-cases.md §5` lines 678-690 adds a compact table for `UC-A21~A27`, but labels them "Deferred / lower-priority fun-surface UCs." `use-cases.md §7` lines 1576-1581 rates derivative/margin UCs P2/P3, and line 1617 rates `UC-A21~A27` P3. `PRD.md §7.1` line 274 and `living-market.md §4` lines 161-181 give much stronger market-pulse detail, so the surface exists conceptually, but it is not yet a first-build screen/state acceptance spec. |
+| rank6 — moment-to-moment juice/haptics tokens labeled NOT R4 state feedback | **RESOLVED** | `living-market.md §7.2` lines 269-276 explicitly labels always-on number, chart, pulse, and haptic feedback as "NOT R4" state feedback, not celebration, and forbids success notification for P&L realization/loss recovery. `docs/design-tokens.md §State Feedback Tokens — NOT R4` lines 90-114 defines number count, market pulse, sparkline tween, haptic map, `haptics.plRealized = "none"`, and reduced-motion/reduced-haptics behavior. `design-decisions.md §1` and `§4` lines 7-8 and 22-26 repeat the separation between state feedback and confetti/pomp. `policies.md LEG-07` line 3231 references the design-tokens NOT R4 rule. |
+
+### Contradiction and collision check
+
+No new hard contradictions or ID collisions found in the eight-file fun-boost pass.
+
+- **Confetti/R4 consistency:** consistent across `PRD.md` (`§7.2` lines 279-288, `§8.3` line 342, redline table line 717), `policies.md LEG-07` lines 3228-3234, and `use-cases.md` (`UC-A01` lines 255-266, `UC-B01` lines 696-708, R4 appendix line 1642). All say trade fill, realized/unrealized P&L, profit realization, and loss recovery do not get confetti; identity, badges, levels, good-judgment streaks, collection/set completion, scenarios, and official tier moments can.
+- **Collection/badge naming:** unified enough for implementation. The first-onboarding badge is consistently `'입성 / 플레이어 탄생'` in `PRD.md` lines 279-288, `policies.md` line 3233, `use-cases.md` lines 201, 255, 696-708, and `tracking-plan.md` line 91. The collection system uses "도감/컬렉션" in product docs and `collection_*` in event names. I did not find a conflicting alternate collection name.
+- **XP coherence:** coherent across `PRD.md §8.2`, `policies.md GRF 공통 부록`, `game-modes.md §2.4`, `living-market.md §7.1`, `use-cases.md UC-B11/UC-B36`, and `tracking-plan.md §5.3`. Minor omissions are not blockers: for example `use-cases.md UC-B11` line 940 lists sector/country 도감 XP but does not restate season +500; `UC-B36` line 1513 says season sets pay XP without naming the amount. Since progression balance numbers are expected to tune during build, this is not a doc contradiction.
+- **Notification consistency:** coherent across `PRD.md §7.4`, `policies.md NWS-05/NWS-06`, `use-cases.md UC-B37`, `living-market.md §3.6`, and `tracking-plan.md §5.3.1`. The common constants are 1-2/day, quiet hours 22-08, minimum 20 minutes where specified, inbox fallback, no buy/sell CTA for win-back/loss contexts, and D1/D3/D7/D14/D30 lifecycle.
+- **UC ID collisions:** none found in the canonical `use-cases.md §4` list. The list now has 64 rows (`UC-A01` through `UC-A27`, `UC-B01` through `UC-B37`) with no duplicate row IDs. Detail headings have no duplicate IDs; `UC-A21~A27` are intentionally consolidated under one deferred heading, which explains why there are fewer detail headings than list rows.
+- **New number collisions:** none found that block implementation. The only live "numbers" in the fun boost are XP balance values, notification caps, and haptic durations/intensities. XP values match across the main XP tables; notification caps match across PRD/policies/living-market/use-cases/tracking; haptic/state tokens are contained in `design-tokens.md` and referenced by policy/design docs.
+
+### Updated scores and build-readiness
+
+**FUN score: 8/10.** The pass materially improves fun from the prior 6/10: first-session win feel, progression, collection, notification lifecycle, and moment-to-moment feedback are now specified and compliance-safe. I am not scoring higher because the richest headline surfaces (advanced chart, microstructure, news, market-pulse landing, event reaction, derivatives depth) are mostly deferred/P2/P3 or table-level, not yet first-build acceptance specs.
+
+**Functional score: 9/10.** The docs remain build-ready for the Phase-0/MVP slice already assessed in v4. The fun boost did not weaken accounting, determinism, R4, notification, or use-case structure. It also improves implementation clarity through tracking events and design tokens.
+
+**Build-readiness verdict: BUILD-READY for the Phase-0/MVP slice.** Phase 0/MVP can start with the current docs. The fun boost adds useful product targets for the slice without introducing a new doc blocker. The richer deferred fun-surface screens should be designed as follow-on build/playtest work, not as a prerequisite to starting Phase 0.
+
+### Remaining blockers
+
+**Must fix before build**
+
+None from this fun-boost re-check. Existing implementation gates still apply during build: Phase 0 accounting/determinism tests, fictional ticker migration/denylist, R4 enforcement, and notification consent implementation must pass before release, but the docs now state those constraints clearly enough to start.
+
+**Tune during build/playtest**
+
+1. Progression balance: per-action XP amounts, level curve, rarity distribution, collection set sizes, and cosmetic reward cadence.
+2. Notification tuning: copy, topic mix, exact D1/D3/D7/D14/D30 thresholds, suppression heuristics, and inbox prominence under the fixed 1-2/day cap.
+3. Moment-to-moment juice: haptic strength, count-up duration, pulse intensity, sparkline tween, and reduced-motion/reduced-haptics behavior on real devices.
+4. 도감 content operations: fictional-company roster depth, sector/country/season set taxonomy, art/card style, and duplicate/legacy company migration handling.
+5. Deferred fun surfaces: promote `UC-A21~A27` from compact deferred table to screen/state acceptance specs when they move into a build milestone.
+6. Positive-EV skill detection: calibrate earnings pre-positioning, overshoot-fade, DENY-rumor distrust, and good-judgment streak classifiers against playtest behavior so they reward judgment without becoming hidden chores.
