@@ -1,7 +1,8 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { usePortfolioStore } from '../src/state/stores/portfolioStore';
 import { colors } from '../src/theme';
 
@@ -18,18 +19,22 @@ export default function RootLayout() {
 
   if (!ready) {
     return (
-      <View style={[styles.root, styles.center]}>
-        <ActivityIndicator color={colors.accent} size="large" />
-        <StatusBar style="light" />
-      </View>
+      <SafeAreaProvider>
+        <View style={[styles.root, styles.center]}>
+          <ActivityIndicator color={colors.accent} size="large" />
+          <StatusBar style="light" />
+        </View>
+      </SafeAreaProvider>
     );
   }
 
   return (
-    <SafeAreaView style={styles.root}>
-      <Stack screenOptions={{ headerShown: false, contentStyle: styles.root }} />
-      <StatusBar style="light" />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView edges={['top']} style={styles.root}>
+        <Stack screenOptions={{ headerShown: false, contentStyle: styles.root }} />
+        <StatusBar style="light" />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

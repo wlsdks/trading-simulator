@@ -11,6 +11,7 @@ import {
 } from '../../domain/accounting/ledger';
 import { fromDecimal } from '../../domain/accounting/money';
 import { priceTick } from '../../domain/market/price-engine';
+import { deriveSeed, unitIntervalAt } from '../../domain/market/prng';
 import { STARTING_CASH, STOCKS, STOCKS_BY_TICKER } from '../../data/stocks';
 
 export interface Holding {
@@ -60,6 +61,8 @@ export interface PortfolioState {
   tickIndex: number;
   pricesCents: Record<string, number>;
   dayOpenCents: Record<string, number>;
+  volume: Record<string, number>;
+  turnover: Record<string, number>;
   prices: Record<string, number>;
   dayOpen: Record<string, number>;
   cash: number;
@@ -111,9 +114,13 @@ function createTransactionId(side: 'BUY' | 'SELL' | 'RESET', ticker?: string): s
 function priceMapsForTick(tickIndex: number): {
   pricesCents: Record<string, number>;
   dayOpenCents: Record<string, number>;
+  volume: Record<string, number>;
+  turnover: Record<string, number>;
 } {
   const pricesCents: Record<string, number> = {};
   const dayOpenCents: Record<string, number> = {};
+  const volume: Record<string, number> = {};
+  const turnover: Record<string, number> = {};
 
   for (const stock of STOCKS) {
     const tick = priceTick({
@@ -124,9 +131,36 @@ function priceMapsForTick(tickIndex: number): {
     });
     pricesCents[stock.ticker] = dollarsToCents(tick.mark);
     dayOpenCents[stock.ticker] = dollarsToCents(tick.dayOpen);
+
+    const activity = syntheticActivityForTick(stock.ticker, tickIndex, tick.mark, tick.dayOpen, stock.volatility);
+    volume[stock.ticker] = activity.volume;
+    turnover[stock.ticker] = activity.turnover;
   }
 
-  return { pricesCents, dayOpenCents };
+  return { pricesCents, dayOpenCents, volume, turnover };
+}
+
+function syntheticActivityForTick(
+  ticker: string,
+  tickIndex: number,
+  price: number,
+  dayOpen: number,
+  volatility: number,
+): { volume: number; turnover: number } {
+  const seed = deriveSeed(ticker, 'market-pulse-activity');
+  const baselineNoise = unitIntervalAt(seed, 0);
+  const tickNoise = unitIntervalAt(seed, tickIndex + 1);
+  const wave = 0.5 + unitIntervalAt(seed, Math.floor(tickIndex / 4) + 10) * 0.9;
+  const changePct = dayOpen > 0 ? Math.abs((price - dayOpen) / dayOpen) : 0;
+
+  // MKT-23 placeholder: lightweight deterministic synthetic activity until
+  // the full synthetic-participant microstructure engine owns volume/turnover.
+  const baselineTurnover = price * (36000 + baselineNoise * 90000) * (0.75 + volatility * 0.32);
+  const pulse = 0.7 + tickNoise * 0.9 + wave * 0.35 + changePct * 18;
+  const turnover = Math.round(baselineTurnover * pulse);
+  const volume = Math.max(1, Math.round(turnover / Math.max(price, 0.01)));
+
+  return { volume, turnover };
 }
 
 function toDollarMap(values: Readonly<Record<string, number>>): Record<string, number> {
@@ -232,14 +266,16 @@ function deriveState(
 function buildState(
   ledger: LedgerState,
   tickIndex: number,
-): Pick<PortfolioState, 'ledger' | 'tickIndex' | 'pricesCents' | 'dayOpenCents'> &
+): Pick<PortfolioState, 'ledger' | 'tickIndex' | 'pricesCents' | 'dayOpenCents' | 'volume' | 'turnover'> &
   ReturnType<typeof deriveState> {
-  const { pricesCents, dayOpenCents } = priceMapsForTick(tickIndex);
+  const { pricesCents, dayOpenCents, volume, turnover } = priceMapsForTick(tickIndex);
   return {
     ledger,
     tickIndex,
     pricesCents,
     dayOpenCents,
+    volume,
+    turnover,
     ...deriveState(ledger, pricesCents, dayOpenCents),
   };
 }

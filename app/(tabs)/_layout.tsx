@@ -1,11 +1,13 @@
 import { Tabs } from 'expo-router';
 import { LineChart, Trophy, User, Wallet } from 'lucide-react-native';
 import React, { useMemo, useState } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import TradeModal from '../../src/components/TradeModal';
 import { TradeSheetContext } from '../../src/navigation/tradeSheet';
-import { colors, spacing } from '../../src/theme';
+import { colors } from '../../src/theme';
 
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
   const [tradeTicker, setTradeTicker] = useState<string | null>(null);
   const tradeSheet = useMemo(
     () => ({
@@ -25,6 +27,8 @@ export default function TabsLayout() {
           tabBarStyle: {
             backgroundColor: colors.card,
             borderTopColor: colors.border,
+            height: 56 + insets.bottom,
+            paddingBottom: insets.bottom,
           },
           tabBarLabelStyle: {
             fontSize: 11,
