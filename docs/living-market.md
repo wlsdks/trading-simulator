@@ -280,6 +280,8 @@ PRD §7.1 IA 준수: 종목 랭킹은 [마켓] 탭의 "마켓 펄스"(UC-A03 확
 
 ## 9. MVP 배치 (P0/P1/P2)
 
+> **P1 용어 주의:** 이 섹션의 P0/P1/P2는 living-market 도메인 배치다. build-ready P1 실행 범위와 IN/OUT은 [p1-scope.md](./p1-scope.md)를 SSOT로 따른다.
+
 ### P0 — 착수 전 선행 (봉인 게이트, 코드 없이 시작 불가)
 - **[LEG] `stocks.ts` 실티커 12종 → 가상 발행사 마이그레이션** + 형제 표면(LiquidityProfile·랭킹 유니버스·advBaseline) 동시 가상화. CI "실티커 0" 게이트.
 - **[LEG] 발행사 클리어런스 게이트**(C1~C5, JaroWinkler<0.85+Metaphone, 법무 육안 릴리스 게이트).

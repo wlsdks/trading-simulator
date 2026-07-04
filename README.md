@@ -1,7 +1,9 @@
 # 📈 Trading Simulator
 
-가짜(시뮬레이션) 시세로 주식 매매를 연습해보는 모의투자 앱입니다.
+가짜(시뮬레이션) 시세와 **100% 가상 회사**로 주식 매매를 게임처럼 즐기는 fun-first 가짜 돈 트레이딩 게임입니다.
 **Expo (React Native) + TypeScript** 로 만들어 iOS · Android · Web 어디서나 돌아갑니다.
+
+> 현재 제품 포지셔닝은 "교육용 앱"이 아니라 **재미 우선, 실제 돈/체결 없는 주식 게임**입니다.
 
 ## 기능
 
@@ -13,6 +15,12 @@
 
 > 실제 시세가 아닌 시뮬레이션 데이터입니다. 나중에 실시간 무료 API(Finnhub 등)로 교체할 수 있도록
 > 가격 엔진(`src/engine/priceEngine.ts`)이 분리되어 있습니다.
+
+## 문서
+
+- `docs/policies.md` — 16개 도메인 / 215개 정책의 정책 카탈로그.
+- `docs/use-cases.md` — 49개 유즈케이스 명세.
+- `docs/PRD.md` — fun-first, 100% fictional companies 포지셔닝과 제품 스코프.
 
 ## 시작하기
 
