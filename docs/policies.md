@@ -2289,7 +2289,7 @@
   - 세트 축: sector, country/market, liquidity tier, seasonal/limited-time, event arc(예: 어닝 시즌). 세트 보상은 XP+배지+코스메틱만이며 현금성 보상 없음.
   - 한정/시즌 collectible은 복각 가능성을 사전 라벨링한다(영구 미획득 압박 완화). 미성년·고위험 제한 상품은 읽기/발견만 가능하고 거래 unlock은 제한한다.
 - **의존/충돌**
-  - LEG-07(P&L 독립 축하), GRF-15(과잉거래 안티메트릭), NWS-04/06(루머·정정), living-market.md §7(positive-EV skill), game-modes.md §2.4(개인 진행 루프), tracking-plan.md(계측).
+  - LEG-07(P&L 독립 축하), GRF-15(과잉거래 안티메트릭), NWS-04/06(루머·정정), living-market.md §7(positive-EV skill), game-modes.md §2.4(개인 진행 루프), use-cases.md UC-B36/UC-B37(도감·알림 UX), tracking-plan.md(계측).
 
 ### GRF-04 · 서버 권위 타임라인 (시즌·리셋 UTC 단일 시계)
 

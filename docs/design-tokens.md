@@ -87,6 +87,32 @@ Durations: `instant=0ms`, `fast=120ms`, `base=180ms`, `slow=260ms`, `celebration
 
 Easings: `standard=cubic-bezier(0.2, 0, 0, 1)`, `emphasized=cubic-bezier(0.2, 0, 0, 1.2)`, `exit=cubic-bezier(0.4, 0, 1, 1)`.
 
+### State Feedback Tokens — NOT R4
+
+These tokens are **always-on state feedback, not P&L celebration**. They make an event-less 5-minute session feel alive without triggering LEG-07/R4 confetti rules.
+
+```ts
+motion.numberCount.duration = motion.base        // net worth, PL, ranking deltas
+motion.numberCount.easing = easing.standard
+motion.marketPulse.duration = motion.fast        // up/down color pulse on update
+motion.sparklineTween.duration = motion.slow
+motion.sparklineTween.easing = easing.standard
+
+haptics.orderAccepted = "light"
+haptics.fill = "success-impact"
+haptics.thresholdCross = "selection"
+haptics.badgeEarned = "success-notification"
+haptics.plRealized = "none"                      // never celebrate P&L
+```
+
+Rules:
+- Net-worth and P&L values use tabular numbers and count up/down to the new value. The animation communicates state change only.
+- Up/down color pulse must use `colorUp`/`colorDown` and always pair with sign/arrow.
+- Sparklines tween to new points on update; no flashing above 3 times/sec.
+- Haptic map: fill = success-impact haptic, order-accepted = light haptic, threshold-cross = selection haptic, badge-earned = success-notification haptic.
+- Badge-earned haptic is only for P&L-independent achievements such as badges, levels, good-judgment streaks, and collection completion.
+- Reduced-motion disables count-up/pulse/sparkline tween or switches them to `instant`. Reduced-haptics disables haptics or dampens all events to `light`.
+
 ## 2. Semantic Tokens
 
 Dark mode is primary. A future light theme may use the same semantic names with different primitives, but dark mode remains the quality bar.
@@ -144,6 +170,9 @@ components.market.up = semantic.colorUp
 components.market.down = semantic.colorDown
 components.market.neutral = semantic.textMuted
 components.overlay.scrim = semantic.overlay
+components.feedback.numberCount = motion.numberCount
+components.feedback.marketPulse = motion.marketPulse
+components.feedback.sparklineTween = motion.sparklineTween
 ```
 
 When creating a new component token, first check whether a semantic token is enough. Add component tokens only when a repeated component needs stable background, border, text, or state pairings.
